@@ -26,11 +26,26 @@ class TwitterClient {
 }
 
 class URLShortener {
-	// TODO
-	function __construct() {
-	}
+	// http://is.gd/api_info.php
 
 	public function mask($url) {
+		// create curl resource
+	        $ch = curl_init();
+
+		// set url
+		curl_setopt($ch, CURLOPT_URL, 'http://is.gd/api.php?longurl=' . $url);
+
+		//return the transfer as a string
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		// $output contains the output string
+		$output = curl_exec($ch);
+
+		// close curl resource to free up system resources
+		curl_close($ch);
+
+		if (false == preg_match('/^Error/i', $output)) $url = $output;
+
 		return $url;
 	}
 }

@@ -1,5 +1,19 @@
+License:
+The MIT License
+Copyright (c) 2010 Ubuntu Hong Kong LoCo Team, http://ubuntu.opensource.hk/
+
+Supported Discuz!:
+
+* discuz! 6.0.0
+
 Dependency:
 
 * php-curl
-* php-twitteroath (https://github.com/abraham/twitteroauth/)
+* php-twitteroath (bundled, https://github.com/abraham/twitteroauth/)
+
+Install:
+
+* cp -r include/ <discuz-installation-directory>
+* cp -r plugins/ <discuz-installation-directory>
+* config Twitter OAuth Keys in plugins/twitter/config.php
 

@@ -1,0 +1,5 @@
+Dependency:
+
+* php-curl
+* php-twitteroath (https://github.com/abraham/twitteroauth/)
+

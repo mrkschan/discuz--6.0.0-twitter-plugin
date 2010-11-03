@@ -17,7 +17,7 @@ class TwitterClient {
 	}
 
 	public function is_valid_tweet($stuff) {
-		return (strlen($stuff) <= $t_strlen);
+		return (strlen($stuff) <= $this->t_strlen);
 	}
 
 	public function tweet($stuff) {

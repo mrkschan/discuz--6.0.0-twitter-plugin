@@ -11,6 +11,8 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+require_once(DISCUZ_ROOT.'./plugins/twitter/twitter_client.php');
+
 $discuz_action = 11;
 
 if(empty($forum['fid']) || $forum['type'] == 'group') {
@@ -463,10 +465,14 @@ if(!submitcheck('topicsubmit', 0, $seccodecheck, $secqaacheck)) {
 		if($allowuseblog && $isblog && $blog) {
 			showmessage('post_newthread_blog_succeed', "blog.php?tid=$tid");
 		} else {
+                        $uri_explode = explode('/', $_SERVER["REQUEST_URI"]);
+                        array_pop($uri_explode);
+                        $uri = implode('/', $uri_explode);
+
+			$base_url = 'http://'. $_SERVER["SERVER_NAME"] . $uri . '/';
+			tweet($subject, $base_url. "viewthread.php?tid=$tid");
+
 			showmessage('post_newthread_succeed', "viewthread.php?tid=$tid&extra=$extra".(!empty($frombbs) ? "&frombbs=$frombbs" : ''));
-			require_once(DISCUZ_ROOT.'./plugins/twitter/twitter_client.php');
-			$base_url = 'http://'. $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-			tweet($subject, $base_url . "viewthread.php?tid=$tid&extra=$extra".(!empty($frombbs) ? "&frombbs=$frombbs" : ''));
 		}
 
 	}

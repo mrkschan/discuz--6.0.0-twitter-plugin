@@ -20,6 +20,11 @@ class TwitterClient {
 		return (strlen($stuff) <= $this->t_strlen);
 	}
 
+	public function tweet_shortener($stuff, $total_len) {
+		$len_diff = $total_len - $this->t_strlen;
+		return substr($stuff, 0, strlen($stuff) - $len_diff - 3) . '...';
+	}
+
 	public function tweet($stuff) {
 		$this->conn->post("statuses/update", array('status' => $stuff));
 	}
@@ -57,9 +62,10 @@ function tweet($subject, $url) {
 	$suffix = ' - ' . $shortener->mask($url);
 	$stuff = $subject . $suffix;
 
-	if ($tc->is_valid_tweet($stuff)) {
-		$tc->tweet($stuff);
+	if (false == $tc->is_valid_tweet($stuff)) {
+		$stuff = $tc->tweet_shortener($subject, strlen($stuff)) . $suffix;
 	}
+	$tc->tweet($stuff);
 }
 
 ?>
